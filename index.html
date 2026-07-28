@@ -1,0 +1,1065 @@
+<title>Ridgeline Trade Institute — Hands-On Trade Training</title>
+<style>
+  :root{
+    --bg:#ECEDEA;
+    --bg-raised:#F5F6F3;
+    --bg-sunken:#E1E3DE;
+    --ink:#1B1E1C;
+    --ink-soft:#4B514D;
+    --ink-faint:#7B827D;
+    --line:#C7CCC5;
+    --line-strong:#A9AFA6;
+    --accent:#C6621B;
+    --accent-ink:#FFF5EA;
+    --accent-2:#2B5C73;
+    --accent-2-ink:#EAF4F7;
+    --safety:#D9A61C;
+    --err:#B23A2E;
+    --ok:#2E7D46;
+    --grid-line: rgba(27,30,28,0.06);
+    --shadow: 0 1px 2px rgba(20,22,20,0.06), 0 8px 24px -12px rgba(20,22,20,0.18);
+    --font-display:"Bahnschrift","DIN Alternate","Arial Narrow","Segoe UI Semibold",sans-serif;
+    --font-body:"Segoe UI","Helvetica Neue",Arial,sans-serif;
+    --font-mono:"Consolas","SFMono-Regular","Cascadia Mono","Courier New",monospace;
+  }
+  @media (prefers-color-scheme: dark){
+    :root{
+      --bg:#15181A;
+      --bg-raised:#1C2023;
+      --bg-sunken:#101314;
+      --ink:#E9EAE6;
+      --ink-soft:#A7ACA6;
+      --ink-faint:#767C77;
+      --line:#33383A;
+      --line-strong:#454C4E;
+      --accent:#E68A3D;
+      --accent-ink:#201200;
+      --accent-2:#6FB0C7;
+      --accent-2-ink:#041318;
+      --safety:#E6BB3A;
+      --err:#E06355;
+      --ok:#57C17B;
+      --grid-line: rgba(233,234,230,0.06);
+      --shadow: 0 1px 2px rgba(0,0,0,0.4), 0 8px 28px -12px rgba(0,0,0,0.6);
+    }
+  }
+  :root[data-theme="dark"]{
+    --bg:#15181A; --bg-raised:#1C2023; --bg-sunken:#101314;
+    --ink:#E9EAE6; --ink-soft:#A7ACA6; --ink-faint:#767C77;
+    --line:#33383A; --line-strong:#454C4E;
+    --accent:#E68A3D; --accent-ink:#201200;
+    --accent-2:#6FB0C7; --accent-2-ink:#041318;
+    --safety:#E6BB3A; --err:#E06355; --ok:#57C17B;
+    --grid-line: rgba(233,234,230,0.06);
+    --shadow: 0 1px 2px rgba(0,0,0,0.4), 0 8px 28px -12px rgba(0,0,0,0.6);
+  }
+  :root[data-theme="light"]{
+    --bg:#ECEDEA; --bg-raised:#F5F6F3; --bg-sunken:#E1E3DE;
+    --ink:#1B1E1C; --ink-soft:#4B514D; --ink-faint:#7B827D;
+    --line:#C7CCC5; --line-strong:#A9AFA6;
+    --accent:#C6621B; --accent-ink:#FFF5EA;
+    --accent-2:#2B5C73; --accent-2-ink:#EAF4F7;
+    --safety:#D9A61C; --err:#B23A2E; --ok:#2E7D46;
+    --grid-line: rgba(27,30,28,0.06);
+    --shadow: 0 1px 2px rgba(20,22,20,0.06), 0 8px 24px -12px rgba(20,22,20,0.18);
+  }
+
+  *,*::before,*::after{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--ink);
+    font-family:var(--font-body);
+    font-size:16px;
+    line-height:1.55;
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+  }
+  img,svg{display:block; max-width:100%;}
+  a{color:inherit;}
+  h1,h2,h3,h4{
+    font-family:var(--font-display);
+    font-weight:700;
+    margin:0;
+    text-wrap:balance;
+    letter-spacing:0.005em;
+  }
+  p{margin:0; max-width:62ch;}
+  .container{
+    width:100%;
+    max-width:1180px;
+    margin:0 auto;
+    padding:0 24px;
+  }
+  .eyebrow{
+    font-family:var(--font-mono);
+    font-size:0.72rem;
+    letter-spacing:0.16em;
+    text-transform:uppercase;
+    color:var(--accent);
+    display:flex;
+    align-items:center;
+    gap:10px;
+    margin-bottom:14px;
+  }
+  .eyebrow::before{
+    content:"";
+    width:22px; height:1px;
+    background:var(--accent);
+    display:inline-block;
+  }
+  .btn{
+    font-family:var(--font-mono);
+    font-size:0.82rem;
+    letter-spacing:0.06em;
+    text-transform:uppercase;
+    display:inline-flex;
+    align-items:center;
+    gap:10px;
+    padding:14px 22px;
+    border-radius:3px;
+    border:1px solid transparent;
+    cursor:pointer;
+    text-decoration:none;
+    transition:transform .18s ease, box-shadow .18s ease, background .18s ease, border-color .18s ease;
+    white-space:nowrap;
+  }
+  .btn:active{transform:translateY(1px);}
+  .btn-primary{
+    background:var(--accent);
+    color:var(--accent-ink);
+    box-shadow:0 6px 20px -8px color-mix(in srgb, var(--accent) 70%, transparent);
+  }
+  .btn-primary:hover{transform:translateY(-2px); box-shadow:0 10px 26px -8px color-mix(in srgb, var(--accent) 75%, transparent);}
+  .btn-ghost{
+    background:transparent;
+    color:var(--ink);
+    border-color:var(--line-strong);
+  }
+  .btn-ghost:hover{border-color:var(--accent); color:var(--accent); transform:translateY(-2px);}
+  .btn:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-visible, button:focus-visible{
+    outline:2px solid var(--accent-2);
+    outline-offset:3px;
+  }
+
+  /* ---------- header ---------- */
+  header{
+    position:sticky; top:0; z-index:100;
+    backdrop-filter:blur(14px) saturate(1.4);
+    -webkit-backdrop-filter:blur(14px) saturate(1.4);
+    background:color-mix(in srgb, var(--bg) 78%, transparent);
+    border-bottom:1px solid var(--line);
+  }
+  .nav{
+    display:flex; align-items:center; justify-content:space-between;
+    height:76px;
+  }
+  .brand{
+    display:flex; align-items:center; gap:12px;
+    font-family:var(--font-display);
+    text-transform:uppercase;
+    font-size:1.05rem;
+    letter-spacing:0.03em;
+    text-decoration:none;
+    color:var(--ink);
+  }
+  .brand small{
+    display:block;
+    font-family:var(--font-mono);
+    font-size:0.6rem;
+    letter-spacing:0.18em;
+    color:var(--ink-faint);
+    font-weight:400;
+  }
+  .brand-mark{width:38px; height:38px; flex:none;}
+  .nav-links{
+    display:flex; align-items:center; gap:32px;
+    list-style:none; margin:0; padding:0;
+  }
+  .nav-links a{
+    text-decoration:none;
+    font-size:0.92rem;
+    color:var(--ink-soft);
+    position:relative;
+    padding:6px 0;
+    transition:color .15s ease;
+  }
+  .nav-links a::after{
+    content:"";
+    position:absolute; left:0; right:100%; bottom:0;
+    height:2px; background:var(--accent);
+    transition:right .22s ease;
+  }
+  .nav-links a:hover{color:var(--ink);}
+  .nav-links a:hover::after{right:0;}
+  .nav-cta{display:flex; align-items:center; gap:14px;}
+  .theme-toggle{
+    width:38px; height:38px; border-radius:50%;
+    border:1px solid var(--line-strong);
+    background:var(--bg-raised);
+    display:flex; align-items:center; justify-content:center;
+    cursor:pointer; color:var(--ink-soft);
+    transition:border-color .15s ease, color .15s ease, transform .3s ease;
+  }
+  .theme-toggle:hover{border-color:var(--accent); color:var(--accent);}
+  .hamburger{
+    display:none;
+    width:38px; height:38px;
+    border:1px solid var(--line-strong);
+    border-radius:3px;
+    background:var(--bg-raised);
+    cursor:pointer;
+    align-items:center; justify-content:center;
+    flex-direction:column; gap:5px;
+  }
+  .hamburger span{
+    display:block; width:18px; height:2px; background:var(--ink);
+    transition:transform .25s ease, opacity .25s ease;
+  }
+  body.nav-open .hamburger span:nth-child(1){transform:translateY(7px) rotate(45deg);}
+  body.nav-open .hamburger span:nth-child(2){opacity:0;}
+  body.nav-open .hamburger span:nth-child(3){transform:translateY(-7px) rotate(-45deg);}
+
+  @media (max-width: 860px){
+    .nav-links{
+      position:fixed; inset:76px 0 0 0;
+      background:var(--bg);
+      flex-direction:column;
+      justify-content:flex-start;
+      padding:36px 24px;
+      gap:6px;
+      transform:translateX(100%);
+      transition:transform .32s ease;
+      border-top:1px solid var(--line);
+      height:calc(100vh - 76px);
+    }
+    body.nav-open .nav-links{transform:translateX(0);}
+    .nav-links a{
+      width:100%; padding:16px 4px;
+      border-bottom:1px solid var(--line);
+      font-size:1.1rem;
+    }
+    .nav-links .btn{width:100%; justify-content:center; margin-top:14px;}
+    .hamburger{display:flex;}
+  }
+
+  /* ---------- hero ---------- */
+  .hero{
+    position:relative;
+    padding:110px 0 90px;
+    background:
+      repeating-linear-gradient(0deg, var(--grid-line) 0 1px, transparent 1px 48px),
+      repeating-linear-gradient(90deg, var(--grid-line) 0 1px, transparent 1px 48px);
+    overflow:hidden;
+    border-bottom:1px solid var(--line);
+  }
+  .hero::before{
+    content:"";
+    position:absolute; top:0; right:-10%;
+    width:60%; height:100%;
+    background:radial-gradient(ellipse at top right, color-mix(in srgb, var(--accent) 16%, transparent), transparent 70%);
+    pointer-events:none;
+  }
+  .hero-inner{
+    position:relative; z-index:1;
+    display:grid;
+    grid-template-columns:1.2fr 0.8fr;
+    gap:56px;
+    align-items:end;
+  }
+  @media (max-width:900px){ .hero-inner{grid-template-columns:1fr;} }
+  .hero h1{
+    font-size:clamp(2.4rem, 5.6vw, 4.3rem);
+    line-height:0.98;
+    text-transform:uppercase;
+  }
+  .hero h1 em{
+    font-style:normal;
+    color:var(--accent);
+  }
+  .hero p.lede{
+    margin-top:22px;
+    font-size:1.12rem;
+    color:var(--ink-soft);
+  }
+  .hero-ctas{
+    display:flex; gap:16px; margin-top:34px; flex-wrap:wrap;
+  }
+  .hero-panel{
+    border:1px solid var(--line-strong);
+    background:color-mix(in srgb, var(--bg-raised) 88%, transparent);
+    border-radius:4px;
+    padding:22px;
+    position:relative;
+  }
+  .hero-panel::before, .hero-panel::after{
+    content:""; position:absolute; width:14px; height:14px;
+    border:1.5px solid var(--accent);
+  }
+  .hero-panel::before{top:-1px; left:-1px; border-right:none; border-bottom:none;}
+  .hero-panel::after{bottom:-1px; right:-1px; border-left:none; border-top:none;}
+  .hero-panel-title{
+    font-family:var(--font-mono);
+    font-size:0.7rem;
+    letter-spacing:0.14em;
+    text-transform:uppercase;
+    color:var(--ink-faint);
+    display:flex; justify-content:space-between;
+    margin-bottom:16px;
+  }
+  .dial-row{display:grid; grid-template-columns:1fr 1fr; gap:18px;}
+  .dial{text-align:left;}
+  .dial svg{width:56px; height:56px;}
+  .dial-num{
+    font-family:var(--font-mono);
+    font-size:1.7rem;
+    font-weight:700;
+    font-variant-numeric:tabular-nums;
+    margin-top:8px;
+    display:block;
+  }
+  .dial-label{
+    font-family:var(--font-mono);
+    font-size:0.66rem;
+    letter-spacing:0.08em;
+    text-transform:uppercase;
+    color:var(--ink-faint);
+  }
+  .dial-arc{stroke:var(--line-strong); fill:none; stroke-width:4;}
+  .dial-arc-fill{
+    stroke:var(--accent); fill:none; stroke-width:4; stroke-linecap:round;
+    stroke-dasharray:126; stroke-dashoffset:126;
+    transition:stroke-dashoffset 1.4s cubic-bezier(.2,.7,.2,1);
+  }
+  .is-visible .dial-arc-fill{stroke-dashoffset:var(--fill, 30);}
+
+  /* ---------- reveal ---------- */
+  .reveal{
+    opacity:0; transform:translateY(26px);
+    transition:opacity .7s cubic-bezier(.2,.7,.2,1), transform .7s cubic-bezier(.2,.7,.2,1);
+  }
+  .reveal.is-visible{opacity:1; transform:translateY(0);}
+  .stagger > *{transition-delay:calc(var(--i,0) * 90ms);}
+
+  section{padding:96px 0;}
+  @media (max-width:700px){ section{padding:64px 0;} }
+  .section-head{
+    display:flex; justify-content:space-between; align-items:flex-end;
+    gap:24px; margin-bottom:48px; flex-wrap:wrap;
+  }
+  .section-head h2{
+    font-size:clamp(1.8rem, 3.6vw, 2.6rem);
+    text-transform:uppercase;
+  }
+  .section-head p{color:var(--ink-soft); max-width:46ch;}
+
+  /* ---------- programs ---------- */
+  .programs-grid{
+    display:grid; grid-template-columns:repeat(3, 1fr); gap:22px;
+  }
+  @media (max-width:960px){ .programs-grid{grid-template-columns:repeat(2,1fr);} }
+  @media (max-width:640px){ .programs-grid{grid-template-columns:1fr;} }
+  .program-card{
+    position:relative;
+    background:var(--bg-raised);
+    border:1px solid var(--line);
+    padding:26px 24px 24px;
+    transition:transform .25s ease, box-shadow .25s ease, border-color .25s ease;
+  }
+  .program-card::before, .program-card::after{
+    content:""; position:absolute; width:12px; height:12px;
+    border:1.5px solid var(--line-strong);
+    transition:border-color .25s ease;
+  }
+  .program-card::before{top:-1px; left:-1px; border-right:none; border-bottom:none;}
+  .program-card::after{bottom:-1px; right:-1px; border-left:none; border-top:none;}
+  .program-card:hover{
+    transform:translateY(-6px);
+    box-shadow:var(--shadow);
+    border-color:var(--line);
+  }
+  .program-card:hover::before, .program-card:hover::after{border-color:var(--accent);}
+  .program-tag{
+    font-family:var(--font-mono); font-size:0.66rem; letter-spacing:0.1em;
+    text-transform:uppercase; color:var(--accent-2);
+    background:color-mix(in srgb, var(--accent-2) 14%, transparent);
+    padding:4px 8px; border-radius:2px; display:inline-block; margin-bottom:14px;
+  }
+  .program-card h3{font-size:1.32rem; text-transform:uppercase; margin-bottom:10px;}
+  .program-card p{color:var(--ink-soft); font-size:0.93rem; margin-bottom:18px;}
+  .spec-list{list-style:none; margin:0; padding:14px 0 0; border-top:1px dashed var(--line-strong);}
+  .spec-list li{
+    display:flex; justify-content:space-between;
+    font-family:var(--font-mono); font-size:0.76rem;
+    color:var(--ink-faint); padding:5px 0;
+  }
+  .spec-list li b{color:var(--ink); font-weight:600;}
+
+  /* ---------- path ---------- */
+  .path{
+    display:grid; grid-template-columns:repeat(4,1fr); gap:0;
+    position:relative;
+  }
+  @media (max-width:820px){ .path{grid-template-columns:1fr; gap:0;} }
+  .path-step{
+    position:relative; padding:0 20px 0 0;
+  }
+  .path-step:not(:last-child)::after{
+    content:""; position:absolute; top:26px; left:20px; right:-20px; height:1px;
+    background:repeating-linear-gradient(90deg, var(--line-strong) 0 6px, transparent 6px 12px);
+  }
+  @media (max-width:820px){
+    .path-step{padding:0 0 40px 52px;}
+    .path-step:not(:last-child)::after{top:14px; left:14px; right:auto; width:1px; height:calc(100% + 6px); bottom:0;}
+  }
+  .path-num{
+    font-family:var(--font-mono); font-weight:700; font-size:1.1rem;
+    width:52px; height:52px; border-radius:50%;
+    border:1.5px solid var(--accent); color:var(--accent);
+    display:flex; align-items:center; justify-content:center;
+    background:var(--bg); position:relative; z-index:1; margin-bottom:18px;
+  }
+  @media (max-width:820px){ .path-num{position:absolute; left:0; top:0; margin-bottom:0;} }
+  .path-step h4{font-size:1.05rem; text-transform:uppercase; margin-bottom:8px;}
+  .path-step p{font-size:0.9rem; color:var(--ink-soft);}
+
+  /* ---------- why band ---------- */
+  .why{background:var(--bg-sunken); border-top:1px solid var(--line); border-bottom:1px solid var(--line);}
+  .why-grid{display:grid; grid-template-columns:repeat(4,1fr); gap:28px;}
+  @media (max-width:900px){ .why-grid{grid-template-columns:repeat(2,1fr);} }
+  @media (max-width:520px){ .why-grid{grid-template-columns:1fr;} }
+  .why-item{text-align:left;}
+  .why-item svg{width:34px; height:34px; color:var(--accent); margin-bottom:16px;}
+  .why-item h4{font-size:1rem; text-transform:uppercase; margin-bottom:8px;}
+  .why-item p{font-size:0.9rem; color:var(--ink-soft);}
+
+  /* ---------- testimonials ---------- */
+  .testi-grid{
+    display:grid; grid-template-columns:repeat(3,1fr); gap:22px;
+  }
+  @media (max-width:960px){ .testi-grid{grid-template-columns:1fr; max-width:520px;} }
+  .testi-card{
+    background:var(--bg-raised); border:1px solid var(--line);
+    padding:26px; border-radius:4px;
+    display:flex; flex-direction:column; gap:16px;
+    transition:transform .25s ease, box-shadow .25s ease;
+  }
+  .testi-card:hover{transform:translateY(-4px); box-shadow:var(--shadow);}
+  .testi-quote{font-size:0.98rem; color:var(--ink); font-style:italic;}
+  .testi-badge{
+    display:flex; align-items:center; gap:12px;
+    padding-top:14px; border-top:1px solid var(--line);
+  }
+  .badge-chip{
+    width:42px; height:42px; border-radius:50%;
+    background:color-mix(in srgb, var(--accent) 18%, transparent);
+    color:var(--accent); font-family:var(--font-mono); font-weight:700;
+    display:flex; align-items:center; justify-content:center; font-size:0.9rem;
+  }
+  .testi-name{font-size:0.9rem; font-weight:600;}
+  .testi-role{font-family:var(--font-mono); font-size:0.7rem; color:var(--ink-faint); letter-spacing:0.04em;}
+
+  /* ---------- enroll ---------- */
+  .enroll{background:var(--bg-sunken); border-top:1px solid var(--line);}
+  .enroll-inner{
+    display:grid; grid-template-columns:0.9fr 1.1fr; gap:56px; align-items:start;
+  }
+  @media (max-width:900px){ .enroll-inner{grid-template-columns:1fr;} }
+  .enroll-info h2{font-size:clamp(1.8rem,3.4vw,2.4rem); text-transform:uppercase; margin-bottom:18px;}
+  .enroll-info p{color:var(--ink-soft); margin-bottom:24px;}
+  .enroll-list{list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:14px;}
+  .enroll-list li{display:flex; gap:12px; align-items:flex-start; font-size:0.94rem; color:var(--ink-soft);}
+  .enroll-list svg{width:18px; height:18px; color:var(--ok); flex:none; margin-top:3px;}
+
+  form.card{
+    background:var(--bg-raised); border:1px solid var(--line);
+    padding:32px; border-radius:4px;
+  }
+  .field{margin-bottom:20px; position:relative;}
+  .field label{
+    display:block; font-family:var(--font-mono); font-size:0.72rem;
+    letter-spacing:0.08em; text-transform:uppercase; color:var(--ink-faint);
+    margin-bottom:8px;
+  }
+  .field input, .field select, .field textarea{
+    width:100%; padding:12px 14px; font-size:0.95rem;
+    background:var(--bg); color:var(--ink);
+    border:1px solid var(--line-strong); border-radius:3px;
+    font-family:var(--font-body);
+    transition:border-color .18s ease, box-shadow .18s ease;
+  }
+  .field input:focus, .field select:focus, .field textarea:focus{
+    border-color:var(--accent-2); outline:none;
+    box-shadow:0 0 0 3px color-mix(in srgb, var(--accent-2) 22%, transparent);
+  }
+  .field textarea{resize:vertical; min-height:96px;}
+  .field-row{display:grid; grid-template-columns:1fr 1fr; gap:16px;}
+  @media (max-width:520px){ .field-row{grid-template-columns:1fr;} }
+  .field.invalid input, .field.invalid select, .field.invalid textarea{border-color:var(--err);}
+  .field.invalid{animation:shake .38s ease;}
+  @keyframes shake{
+    10%,90%{transform:translateX(-1px);}
+    20%,80%{transform:translateX(2px);}
+    30%,50%,70%{transform:translateX(-4px);}
+    40%,60%{transform:translateX(4px);}
+  }
+  .error-msg{
+    font-size:0.78rem; color:var(--err); margin-top:6px;
+    display:none; align-items:center; gap:6px;
+  }
+  .field.invalid .error-msg{display:flex;}
+  .submit-row{display:flex; align-items:center; gap:16px; margin-top:8px;}
+  .submit-btn{position:relative; min-width:180px; justify-content:center;}
+  .spinner{
+    width:15px; height:15px; border-radius:50%;
+    border:2px solid color-mix(in srgb, var(--accent-ink) 40%, transparent);
+    border-top-color:var(--accent-ink);
+    animation:spin .7s linear infinite;
+    display:none;
+  }
+  .submitting .spinner{display:inline-block;}
+  .submitting .btn-label-text{opacity:0.7;}
+  @keyframes spin{to{transform:rotate(360deg);}}
+  .success-box{
+    display:none; align-items:center; gap:14px;
+    background:color-mix(in srgb, var(--ok) 14%, transparent);
+    border:1px solid var(--ok); color:var(--ok);
+    padding:16px 18px; border-radius:4px; margin-top:18px;
+    font-size:0.92rem;
+    animation:pop .5s cubic-bezier(.2,.9,.3,1.3);
+  }
+  .success-box.show{display:flex;}
+  .success-box svg{width:22px; height:22px; flex:none;}
+  @keyframes pop{
+    0%{transform:scale(.85); opacity:0;}
+    60%{transform:scale(1.04); opacity:1;}
+    100%{transform:scale(1);}
+  }
+  form.sent .field, form.sent .submit-row{display:none;}
+
+  /* ---------- footer ---------- */
+  footer{
+    background:var(--ink); color:var(--bg);
+    padding:64px 0 28px;
+  }
+  .foot-grid{
+    display:grid; grid-template-columns:1.4fr 1fr 1fr 1fr; gap:40px;
+    padding-bottom:40px; border-bottom:1px solid rgba(255,255,255,0.14);
+  }
+  @media (max-width:820px){ .foot-grid{grid-template-columns:1fr 1fr;} }
+  @media (max-width:520px){ .foot-grid{grid-template-columns:1fr;} }
+  .foot-brand{display:flex; align-items:center; gap:12px; margin-bottom:14px; text-decoration:none; color:inherit;}
+  .foot-brand svg{width:34px; height:34px;}
+  .foot-brand span{font-family:var(--font-display); text-transform:uppercase; font-size:1rem; letter-spacing:0.03em;}
+  footer p{color:rgba(255,255,255,0.6); font-size:0.88rem;}
+  .foot-col h5{
+    font-family:var(--font-mono); font-size:0.7rem; letter-spacing:0.12em;
+    text-transform:uppercase; color:rgba(255,255,255,0.45); margin-bottom:16px;
+  }
+  .foot-col ul{list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:10px;}
+  .foot-col a{color:rgba(255,255,255,0.78); text-decoration:none; font-size:0.9rem; transition:color .15s ease;}
+  .foot-col a:hover{color:var(--accent);}
+  .foot-bottom{
+    display:flex; justify-content:space-between; align-items:center;
+    padding-top:24px; flex-wrap:wrap; gap:12px;
+  }
+  .foot-bottom p{color:rgba(255,255,255,0.45); font-size:0.78rem; font-family:var(--font-mono);}
+
+  @media (prefers-reduced-motion: reduce){
+    *{animation-duration:0.001ms !important; animation-iteration-count:1 !important; transition-duration:0.001ms !important; scroll-behavior:auto !important;}
+    .reveal{opacity:1; transform:none;}
+  }
+</style>
+
+<header>
+  <div class="container nav">
+    <a class="brand" href="#top">
+      <svg class="brand-mark" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <circle cx="20" cy="20" r="17" stroke="var(--accent)" stroke-width="2"/>
+        <path d="M20 20 L28 13" stroke="var(--accent)" stroke-width="2" stroke-linecap="round"/>
+        <circle cx="20" cy="20" r="2.4" fill="var(--accent)"/>
+        <path d="M8 20a12 12 0 0 1 3-8 M32 20a12 12 0 0 1-3 8" stroke="var(--ink-faint)" stroke-width="1.4" stroke-linecap="round"/>
+      </svg>
+      <span>Ridgeline<br><small>Trade Institute</small></span>
+    </a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#programs">Programs</a></li>
+      <li><a href="#path">How It Works</a></li>
+      <li><a href="#why">Why Ridgeline</a></li>
+      <li><a href="#testimonials">Alumni</a></li>
+      <li><a href="#enroll" class="btn btn-primary">Request Info</a></li>
+    </ul>
+    <div class="nav-cta">
+      <button class="theme-toggle" id="themeToggle" aria-label="Toggle color theme" title="Toggle theme">
+        <svg id="themeIcon" width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <path d="M12 3v2M12 19v2M4.2 4.2l1.4 1.4M18.4 18.4l1.4 1.4M3 12h2M19 12h2M4.2 19.8l1.4-1.4M18.4 5.6l1.4-1.4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+          <circle cx="12" cy="12" r="4.4" stroke="currentColor" stroke-width="1.6"/>
+        </svg>
+      </button>
+      <button class="hamburger" id="hamburger" aria-label="Toggle menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<main id="top">
+
+  <!-- ================= HERO ================= -->
+  <section class="hero">
+    <div class="container hero-inner">
+      <div>
+        <p class="eyebrow">Enrolling Fall Cohort &middot; Evening &amp; Weekend Sessions</p>
+        <h1>Learn the trade.<br>Earn the <em>credential.</em><br>Start the career.</h1>
+        <p class="lede">Ridgeline trains adults for real, in-demand trade careers — electrical, welding &amp; fabrication, HVAC/R, and industrial maintenance — through hands-on labs taught by working journeymen, not lecture halls.</p>
+        <div class="hero-ctas">
+          <a href="#enroll" class="btn btn-primary">
+            Request Program Info
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+          <a href="#programs" class="btn btn-ghost">View Programs</a>
+        </div>
+      </div>
+
+      <div class="hero-panel reveal" id="statPanel">
+        <div class="hero-panel-title"><span>Cohort Readout</span><span>Live</span></div>
+        <div class="dial-row">
+          <div class="dial">
+            <svg viewBox="0 0 48 48">
+              <circle class="dial-arc" cx="24" cy="24" r="20" pathLength="126" stroke-dasharray="94 126" transform="rotate(-210 24 24)"/>
+              <circle class="dial-arc-fill" cx="24" cy="24" r="20" pathLength="126" style="--fill:12" transform="rotate(-210 24 24)"/>
+            </svg>
+            <span class="dial-num" data-count="91" data-suffix="%">0%</span>
+            <span class="dial-label">Job Placement</span>
+          </div>
+          <div class="dial">
+            <svg viewBox="0 0 48 48">
+              <circle class="dial-arc" cx="24" cy="24" r="20" pathLength="126" stroke-dasharray="94 126" transform="rotate(-210 24 24)"/>
+              <circle class="dial-arc-fill" cx="24" cy="24" r="20" pathLength="126" style="--fill:38" transform="rotate(-210 24 24)"/>
+            </svg>
+            <span class="dial-num" data-count="63" data-suffix="">0</span>
+            <span class="dial-label">Avg. Days to Hire</span>
+          </div>
+          <div class="dial">
+            <svg viewBox="0 0 48 48">
+              <circle class="dial-arc" cx="24" cy="24" r="20" pathLength="126" stroke-dasharray="94 126" transform="rotate(-210 24 24)"/>
+              <circle class="dial-arc-fill" cx="24" cy="24" r="20" pathLength="126" style="--fill:56" transform="rotate(-210 24 24)"/>
+            </svg>
+            <span class="dial-num" data-count="17" data-suffix="">0</span>
+            <span class="dial-label">Years Training</span>
+          </div>
+          <div class="dial">
+            <svg viewBox="0 0 48 48">
+              <circle class="dial-arc" cx="24" cy="24" r="20" pathLength="126" stroke-dasharray="94 126" transform="rotate(-210 24 24)"/>
+              <circle class="dial-arc-fill" cx="24" cy="24" r="20" pathLength="126" style="--fill:70" transform="rotate(-210 24 24)"/>
+            </svg>
+            <span class="dial-num" data-count="24" data-suffix="">0</span>
+            <span class="dial-label">Seats This Cohort</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= PROGRAMS ================= -->
+  <section id="programs">
+    <div class="container">
+      <div class="section-head reveal">
+        <div>
+          <p class="eyebrow">Programs</p>
+          <h2>Five trades. One shop floor.</h2>
+        </div>
+        <p>Every program mixes classroom fundamentals with paid lab hours on real equipment, and ends with an industry-recognized credential.</p>
+      </div>
+
+      <div class="programs-grid stagger">
+        <article class="program-card reveal" style="--i:0">
+          <span class="program-tag">Most Enrolled</span>
+          <h3>Electrical Technician</h3>
+          <p>Residential and commercial wiring, code compliance, panel work, and troubleshooting live circuits under supervision.</p>
+          <ul class="spec-list">
+            <li><span>Duration</span><b>20 weeks</b></li>
+            <li><span>Format</span><b>Eve / Weekend</b></li>
+            <li><span>Credential</span><b>NCCER Level 1&ndash;2</b></li>
+          </ul>
+        </article>
+
+        <article class="program-card reveal" style="--i:1">
+          <span class="program-tag">Shop-Heavy</span>
+          <h3>Welding &amp; Fabrication</h3>
+          <p>MIG, TIG, and stick welding across positions, blueprint reading, and structural fabrication in our 12-bay shop.</p>
+          <ul class="spec-list">
+            <li><span>Duration</span><b>16 weeks</b></li>
+            <li><span>Format</span><b>Eve / Weekend</b></li>
+            <li><span>Credential</span><b>AWS D1.1 Cert</b></li>
+          </ul>
+        </article>
+
+        <article class="program-card reveal" style="--i:2">
+          <span class="program-tag">High Demand</span>
+          <h3>HVAC / Refrigeration</h3>
+          <p>Installation, diagnostics, and repair of residential and light-commercial heating, cooling, and refrigeration systems.</p>
+          <ul class="spec-list">
+            <li><span>Duration</span><b>18 weeks</b></li>
+            <li><span>Format</span><b>Eve / Weekend</b></li>
+            <li><span>Credential</span><b>EPA 608 + NATE</b></li>
+          </ul>
+        </article>
+
+        <article class="program-card reveal" style="--i:3">
+          <span class="program-tag">Fast Track</span>
+          <h3>Industrial Maintenance</h3>
+          <p>Mechanical, hydraulic, and electrical systems maintenance for plants and manufacturing lines — PLCs included.</p>
+          <ul class="spec-list">
+            <li><span>Duration</span><b>14 weeks</b></li>
+            <li><span>Format</span><b>Eve / Weekend</b></li>
+            <li><span>Credential</span><b>MSSC CPT</b></li>
+          </ul>
+        </article>
+
+        <article class="program-card reveal" style="--i:4">
+          <span class="program-tag">New</span>
+          <h3>CDL &amp; Heavy Equipment</h3>
+          <p>Class A licensing, pre-trip inspection, and operation of excavators, loaders, and graders on our test yard.</p>
+          <ul class="spec-list">
+            <li><span>Duration</span><b>8 weeks</b></li>
+            <li><span>Format</span><b>Full-Time</b></li>
+            <li><span>Credential</span><b>Class A CDL</b></li>
+          </ul>
+        </article>
+
+        <article class="program-card reveal" style="--i:5">
+          <span class="program-tag">Bridge</span>
+          <h3>Trades Prep &amp; Math</h3>
+          <p>A 4-week refresher in applied math, blueprint reading, and shop safety for anyone unsure which trade fits — free with enrollment in any program above.</p>
+          <ul class="spec-list">
+            <li><span>Duration</span><b>4 weeks</b></li>
+            <li><span>Format</span><b>Self-Paced</b></li>
+            <li><span>Credential</span><b>Ridgeline Cert</b></li>
+          </ul>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= PATH ================= -->
+  <section id="path" style="background:var(--bg-raised); border-top:1px solid var(--line); border-bottom:1px solid var(--line);">
+    <div class="container">
+      <div class="section-head reveal">
+        <div>
+          <p class="eyebrow">Enrollment Path</p>
+          <h2>From application to job offer.</h2>
+        </div>
+        <p>The same four stages for every trade, timed around work and family schedules.</p>
+      </div>
+      <div class="path stagger">
+        <div class="path-step reveal" style="--i:0">
+          <div class="path-num">01</div>
+          <h4>Apply</h4>
+          <p>Submit a short application and sit a 20-minute placement conversation — no exam, no fee.</p>
+        </div>
+        <div class="path-step reveal" style="--i:1">
+          <div class="path-num">02</div>
+          <h4>Foundations</h4>
+          <p>Two weeks of safety, math, and tool fundamentals shared across all trades.</p>
+        </div>
+        <div class="path-step reveal" style="--i:2">
+          <div class="path-num">03</div>
+          <h4>Hands-On Labs</h4>
+          <p>The bulk of the program: supervised work on real equipment in small crews of six.</p>
+        </div>
+        <div class="path-step reveal" style="--i:3">
+          <div class="path-num">04</div>
+          <h4>Placement</h4>
+          <p>Our employer network interviews graduating cohorts before the final week ends.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= WHY ================= -->
+  <section class="why" id="why">
+    <div class="container">
+      <div class="section-head reveal">
+        <div>
+          <p class="eyebrow">Why Ridgeline</p>
+          <h2>Built like a shop, not a school.</h2>
+        </div>
+      </div>
+      <div class="why-grid stagger">
+        <div class="why-item reveal" style="--i:0">
+          <svg viewBox="0 0 24 24" fill="none"><path d="M14.7 6.3a4 4 0 1 1-5.6 5.6L4 17v3h3l5.1-5.1a4 4 0 0 1 5.6-5.6l-3 3-2-2 3-3z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>
+          <h4>Taught by journeymen</h4>
+          <p>Every instructor works or worked the trade full-time — no career academics.</p>
+        </div>
+        <div class="why-item reveal" style="--i:1">
+          <svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.6"/><path d="M12 7v5l3.5 2" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+          <h4>Evenings &amp; weekends</h4>
+          <p>Every program runs around a day job, with cohorts starting quarterly.</p>
+        </div>
+        <div class="why-item reveal" style="--i:2">
+          <svg viewBox="0 0 24 24" fill="none"><path d="M4 20h16M6 20V10l6-5 6 5v10M9 20v-6h6v6" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>
+          <h4>Employer network</h4>
+          <p>140+ regional contractors and plants hire directly from our graduating cohorts.</p>
+        </div>
+        <div class="why-item reveal" style="--i:3">
+          <svg viewBox="0 0 24 24" fill="none"><rect x="3" y="4" width="18" height="14" rx="1.5" stroke="currentColor" stroke-width="1.6"/><path d="M3 9h18M8 4v0" stroke="currentColor" stroke-width="1.6"/></svg>
+          <h4>Financing that fits</h4>
+          <p>Payment plans, employer sponsorship, and workforce-grant paperwork handled on-site.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= TESTIMONIALS ================= -->
+  <section id="testimonials">
+    <div class="container">
+      <div class="section-head reveal">
+        <div>
+          <p class="eyebrow">Alumni</p>
+          <h2>Where they landed.</h2>
+        </div>
+      </div>
+      <div class="testi-grid stagger">
+        <div class="testi-card reveal" style="--i:0">
+          <p class="testi-quote">"I was driving a forklift at 34 with no plan. Sixteen weeks later I had a welding cert and a job at the rail yard paying eleven dollars more an hour."</p>
+          <div class="testi-badge">
+            <div class="badge-chip">MT</div>
+            <div>
+              <div class="testi-name">Marcus T.</div>
+              <div class="testi-role">Welding &amp; Fabrication &middot; Class of '25</div>
+            </div>
+          </div>
+        </div>
+        <div class="testi-card reveal" style="--i:1">
+          <p class="testi-quote">"The instructors had callouses. That's the difference — they'd actually done the job that morning before teaching it that night."</p>
+          <div class="testi-badge">
+            <div class="badge-chip">RN</div>
+            <div>
+              <div class="testi-name">Renata N.</div>
+              <div class="testi-role">HVAC / Refrigeration &middot; Class of '24</div>
+            </div>
+          </div>
+        </div>
+        <div class="testi-card reveal" style="--i:2">
+          <p class="testi-quote">"Three plant maintenance interviews before graduation, two offers by the following Monday. The employer network is not a slide in a brochure, it's real."</p>
+          <div class="testi-badge">
+            <div class="badge-chip">DJ</div>
+            <div>
+              <div class="testi-name">Devon J.</div>
+              <div class="testi-role">Industrial Maintenance &middot; Class of '25</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= ENROLL ================= -->
+  <section class="enroll" id="enroll">
+    <div class="container enroll-inner">
+      <div class="enroll-info reveal">
+        <p class="eyebrow">Request Info</p>
+        <h2>Talk to admissions this week.</h2>
+        <p>Tell us which trade you're considering and an admissions advisor — usually a graduate of the program — will call within one business day.</p>
+        <ul class="enroll-list">
+          <li><svg viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>No exam or application fee</li>
+          <li><svg viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>Tour the shop before you commit</li>
+          <li><svg viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>Financing &amp; grant paperwork reviewed on the call</li>
+        </ul>
+      </div>
+
+      <form class="card reveal" id="enrollForm" novalidate>
+        <div class="field-row">
+          <div class="field" data-field="name">
+            <label for="fname">Full name</label>
+            <input id="fname" name="name" type="text" placeholder="Jordan Alvarez" autocomplete="name">
+            <div class="error-msg">Enter your full name.</div>
+          </div>
+          <div class="field" data-field="email">
+            <label for="femail">Email</label>
+            <input id="femail" name="email" type="email" placeholder="you@email.com" autocomplete="email">
+            <div class="error-msg">Enter a valid email address.</div>
+          </div>
+        </div>
+        <div class="field" data-field="program">
+          <label for="fprogram">Program of interest</label>
+          <select id="fprogram" name="program">
+            <option value="">Select a program&hellip;</option>
+            <option>Electrical Technician</option>
+            <option>Welding &amp; Fabrication</option>
+            <option>HVAC / Refrigeration</option>
+            <option>Industrial Maintenance</option>
+            <option>CDL &amp; Heavy Equipment</option>
+            <option>Not sure yet</option>
+          </select>
+          <div class="error-msg">Pick a program, or "Not sure yet".</div>
+        </div>
+        <div class="field" data-field="message">
+          <label for="fmessage">Anything we should know?</label>
+          <textarea id="fmessage" name="message" placeholder="Prior experience, schedule constraints, questions about financing&hellip;"></textarea>
+        </div>
+        <div class="submit-row">
+          <button type="submit" class="btn btn-primary submit-btn">
+            <span class="spinner"></span>
+            <span class="btn-label-text">Request Info</span>
+          </button>
+        </div>
+        <div class="success-box" id="successBox">
+          <svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="1.6"/><path d="M7.5 12.5l3 3 6-6.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <span>Request received — an advisor will call within one business day.</span>
+        </div>
+      </form>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="container">
+    <div class="foot-grid">
+      <div>
+        <a class="foot-brand" href="#top">
+          <svg viewBox="0 0 40 40" fill="none" aria-hidden="true">
+            <circle cx="20" cy="20" r="17" stroke="var(--accent)" stroke-width="2"/>
+            <path d="M20 20 L28 13" stroke="var(--accent)" stroke-width="2" stroke-linecap="round"/>
+            <circle cx="20" cy="20" r="2.4" fill="var(--accent)"/>
+          </svg>
+          <span>Ridgeline Trade Institute</span>
+        </a>
+        <p>Hands-on trade training and job placement, on one shop floor. Accredited by the Regional Workforce Board.</p>
+      </div>
+      <div class="foot-col">
+        <h5>Programs</h5>
+        <ul>
+          <li><a href="#programs">Electrical Technician</a></li>
+          <li><a href="#programs">Welding &amp; Fabrication</a></li>
+          <li><a href="#programs">HVAC / Refrigeration</a></li>
+          <li><a href="#programs">Industrial Maintenance</a></li>
+        </ul>
+      </div>
+      <div class="foot-col">
+        <h5>Institute</h5>
+        <ul>
+          <li><a href="#why">Why Ridgeline</a></li>
+          <li><a href="#testimonials">Alumni Outcomes</a></li>
+          <li><a href="#path">Enrollment Path</a></li>
+          <li><a href="#enroll">Request Info</a></li>
+        </ul>
+      </div>
+      <div class="foot-col">
+        <h5>Visit the Shop</h5>
+        <ul>
+          <li><a href="#enroll">412 Foundry Row, Millbrook</a></li>
+          <li><a href="#enroll">(555) 019-2244</a></li>
+          <li><a href="#enroll">admissions@ridgelinetrade.edu</a></li>
+          <li><a href="#enroll">Mon&ndash;Fri 8a&ndash;7p, Sat 9a&ndash;1p</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <p>&copy; 2026 Ridgeline Trade Institute. All rights reserved.</p>
+      <p>NCCER &middot; AWS &middot; EPA 608 &middot; MSSC Accredited Provider</p>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var body = document.body;
+  var hamburger = document.getElementById('hamburger');
+  hamburger.addEventListener('click', function(){
+    var open = body.classList.toggle('nav-open');
+    hamburger.setAttribute('aria-expanded', open ? 'true' : 'false');
+  });
+  document.querySelectorAll('.nav-links a').forEach(function(a){
+    a.addEventListener('click', function(){ body.classList.remove('nav-open'); });
+  });
+
+  var root = document.documentElement;
+  var themeToggle = document.getElementById('themeToggle');
+  themeToggle.addEventListener('click', function(){
+    var current = root.getAttribute('data-theme');
+    var prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    var isDark = current ? current === 'dark' : prefersDark;
+    root.setAttribute('data-theme', isDark ? 'light' : 'dark');
+  });
+
+  var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  var counted = false;
+  function animateCounters(){
+    if (counted) return;
+    counted = true;
+    document.querySelectorAll('.dial-num').forEach(function(el){
+      var target = parseInt(el.getAttribute('data-count'), 10);
+      var suffix = el.getAttribute('data-suffix') || '';
+      if (reduceMotion){ el.textContent = target + suffix; return; }
+      var start = 0;
+      var duration = 1200;
+      var startTime = null;
+      function step(ts){
+        if (!startTime) startTime = ts;
+        var progress = Math.min((ts - startTime) / duration, 1);
+        var eased = 1 - Math.pow(1 - progress, 3);
+        var val = Math.round(start + (target - start) * eased);
+        el.textContent = val + suffix;
+        if (progress < 1) requestAnimationFrame(step);
+      }
+      requestAnimationFrame(step);
+    });
+  }
+
+  var io = new IntersectionObserver(function(entries){
+    entries.forEach(function(entry){
+      if (entry.isIntersecting){
+        entry.target.classList.add('is-visible');
+        if (entry.target.id === 'statPanel') animateCounters();
+      }
+    });
+  }, { threshold: 0.2, rootMargin: '-60px' });
+
+  document.querySelectorAll('.reveal').forEach(function(el){ io.observe(el); });
+
+  var form = document.getElementById('enrollForm');
+  var successBox = document.getElementById('successBox');
+  var submitBtn = form.querySelector('.submit-btn');
+
+  function validators(){
+    return {
+      name: function(){ return form.name.value.trim().length > 1; },
+      email: function(){ return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email.value.trim()); },
+      program: function(){ return form.program.value !== ''; }
+    };
+  }
+
+  form.addEventListener('submit', function(e){
+    e.preventDefault();
+    var checks = validators();
+    var valid = true;
+    Object.keys(checks).forEach(function(key){
+      var fieldEl = form.querySelector('[data-field="' + key + '"]');
+      var ok = checks[key]();
+      fieldEl.classList.toggle('invalid', !ok);
+      if (!ok) valid = false;
+    });
+    if (!valid) return;
+
+    form.classList.add('submitting');
+    submitBtn.disabled = true;
+    setTimeout(function(){
+      form.classList.remove('submitting');
+      form.classList.add('sent');
+      successBox.classList.add('show');
+    }, 1100);
+  });
+
+  ['name','email','program'].forEach(function(key){
+    var el = form[key];
+    el.addEventListener('input', function(){
+      form.querySelector('[data-field="' + key + '"]').classList.remove('invalid');
+    });
+  });
+})();
+</script>
